@@ -4,9 +4,11 @@ import { withStyles } from '@material-ui/core/styles'
 import Typography from "@material-ui/core/Typography/Typography"
 import Grid from '@material-ui/core/Grid'
 import SequenceInput from './SequenceInput'
+import { Motion, spring} from 'react-motion';
 
 import LocationTable from './LocationTable'
 import Cite from './Cite'
+import SequenceStatus from "./SequenceStatus";
 
 const styles = theme => ({
     attribution: {
@@ -25,7 +27,10 @@ const styles = theme => ({
     textField: {
         width: "100%",
         textAlign: "center"
-    }
+    },
+    fadingComponents: {
+        transition: '.5s'
+    },
 });
 
 const uniprotRegex = /^[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2}$/;
@@ -86,12 +91,24 @@ class App extends React.Component {
                         <Grid item className={classes.search} xs={12}>
                             <SequenceInput />
                         </Grid>
-                        <Grid item className={classes.search} xs={12} md={6} xl={6}>
-                            <LocationTable data={this.state} />
+                        <Grid item className={classes.search} xs={12}>
+                            <SequenceStatus />
                         </Grid>
-                        <Grid item className={classes.search} xs={12} md={6} xl={6}>
-                            <LocationTable data={this.state} />
-                        </Grid>
+                        <Motion defaultStyle={{opacity: 0}} style={{opacity: spring(20)}}>
+                            {value =>
+                                <Grid item className={classes.fadingComponents} style={{opacity: value.opacity}} xs={12} md={6} xl={6}>
+                                    <LocationTable data={this.state} />
+                                </Grid>
+                            }
+                        </Motion>
+                        <Motion defaultStyle={{opacity: 0}} style={{opacity: spring(20)}}>
+                            {value =>
+                                <Grid item className={classes.fadingComponents} style={{opacity: value.opacity}} xs={12} md={6} xl={6}>
+                                    <LocationTable data={this.state} />
+                                </Grid>
+                            }
+                        </Motion>
+
                         <Grid item className={classes.search} xs={12}>
                             <Cite/>
                         </Grid>

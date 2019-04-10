@@ -265,39 +265,37 @@ LAHAIHQVTK`,
         const { classes } = this.props;
 
         return (
-            <div>
-                <Paper square elevation={2} className={classes.paper}>
-                    <Typography variant="h6">
-                        Sequence:
-                    </Typography>
-                    <form className={classes.container} noValidate autoComplete="off">
-                        <TextField
-                            id="proteinSequenceInput"
-                            multiline
-                            data-gramm_editor={false}
-                            className={classes.textField}
-                            value={this.state.proteinSequenceInput}
-                            onChange={this.deleyedKeyUp}
-                            margin="normal"
-                            autoFocus
-                        />
-                    </form>
-                    <Typography component={"div"} variant="body1">
-                        {'Sequence can be in '}
-                        <strong className={classnames("pointer", classes.underline)} onClick={this.loadSequence('fasta')}>{"FASTA format"}</strong>
-                        {', a '}
-                        <strong className={classnames("pointer", classes.underline)} onClick={this.loadSequence('accession')}>{"UniProt Accession"}</strong>
-                        {' number or '}
-                        <strong className={classnames("pointer", classes.underline)} onClick={this.loadSequence('protein_name')}>{"UniProt Protein Name"}</strong>
-                        {', or  '}
-                        <strong className={classnames("pointer", classes.underline)} onClick={this.loadSequence('aa')}>{"AA sequence"}</strong>
-                        .
-                    </Typography>
-                    <Typography component={"div"} variant="caption">
-                        Click the bold text for examples.
-                    </Typography>
-                </Paper>
-            </div>
+            <Paper square elevation={2} className={classes.paper}>
+                <Typography variant="h6">
+                    Sequence:
+                </Typography>
+                <form className={classes.container} noValidate autoComplete="off">
+                    <TextField
+                        id="proteinSequenceInput"
+                        multiline
+                        data-gramm_editor={false}
+                        className={classes.textField}
+                        value={this.state.proteinSequenceInput}
+                        onChange={this.deleyedKeyUp}
+                        margin="normal"
+                        autoFocus
+                    />
+                </form>
+                <Typography component={"div"} variant="body1">
+                    {'Sequence can be in '}
+                    <strong className={classnames("pointer", classes.underline)} onClick={this.loadSequence('fasta')}>{"FASTA format"}</strong>
+                    {', a '}
+                    <strong className={classnames("pointer", classes.underline)} onClick={this.loadSequence('accession')}>{"UniProt Accession"}</strong>
+                    {' number or '}
+                    <strong className={classnames("pointer", classes.underline)} onClick={this.loadSequence('protein_name')}>{"UniProt Protein Name"}</strong>
+                    {', or  '}
+                    <strong className={classnames("pointer", classes.underline)} onClick={this.loadSequence('aa')}>{"AA sequence"}</strong>
+                    .
+                </Typography>
+                <Typography component={"div"} variant="caption">
+                    Click the bold text for examples.
+                </Typography>
+            </Paper>
         );
     }
 }
