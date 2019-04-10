@@ -1,8 +1,8 @@
 {
-  "name": "subcellular.protein.properties",
+  "name": "embed.protein.properties",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://protein.properties",
+  "homepage": "https://embed.protein.properties",
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "gh-pages": "^2.0.1",
