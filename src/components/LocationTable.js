@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import {arrayToCSV, arrayToTSV} from './converters';
+import {arrayToCSV, arrayToTSV} from '../utils/converters';
 
 const styles = theme => ({
     root: {

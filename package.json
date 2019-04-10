@@ -5,11 +5,17 @@
   "homepage": "https://embed.protein.properties",
   "dependencies": {
     "@material-ui/core": "^3.9.2",
+    "classnames": "^2.2.6",
     "gh-pages": "^2.0.1",
+    "history": "^4.9.0",
     "prop-types": "^15.7.2",
+    "protein-parser": "^0.1.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
-    "react-scripts": "2.1.8"
+    "react-ga": "^2.5.7",
+    "react-redux": "^7.0.1",
+    "react-scripts": "2.1.8",
+    "redux": "^4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

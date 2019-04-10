@@ -1,10 +1,12 @@
-import React from 'react';
-import TextField from '@material-ui/core/TextField';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import LocationTable from './LocationTable';
-import Typography from "@material-ui/core/Typography/Typography";
-import Grid from '@material-ui/core/Grid';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import Typography from "@material-ui/core/Typography/Typography"
+import Grid from '@material-ui/core/Grid'
+import SequenceInput from './SequenceInput'
+
+import LocationTable from './LocationTable'
+import Cite from './Cite'
 
 const styles = theme => ({
     attribution: {
@@ -79,29 +81,26 @@ class App extends React.Component {
 
         return (
             <Grid container className={classes.root} spacing={0}>
-                <Grid item xs={3} />
-                <Grid item className={classes.search} xs={6}>
-                    <TextField
-                        id="query"
-                        label="UniProt Accession"
-                        className={classes.textField}
-                        value={this.state.query}
-                        onChange={this.onInputChange}
-                        margin="normal"
-                        variant="outlined"
-                        error={!this.state.valid}
-                    />
-                </Grid>
-                <Grid item xs={3} />
-                <Grid item xs={false} md={2} xl={2} />
-                <Grid item className={classes.search} xs={12} md={8} xl={8}>
-                    <LocationTable data={this.state} />
-                </Grid>
-                <Grid item xs={false} md={2} xl={2} />
-                <Grid item className={classes.search} xs={12}>
-                    <Typography variant={"caption"} className={classes.attribution}>
-                        Måde by <a rel="noopener noreferrer" href="https://christian.dallago.us" target="_blank">Christian Dallago</a>.
-                    </Typography>
+                <Grid item xs={12}>
+                    <Grid container className={classes.root} spacing={16}>
+                        <Grid item className={classes.search} xs={12}>
+                            <SequenceInput />
+                        </Grid>
+                        <Grid item className={classes.search} xs={12} md={6} xl={6}>
+                            <LocationTable data={this.state} />
+                        </Grid>
+                        <Grid item className={classes.search} xs={12} md={6} xl={6}>
+                            <LocationTable data={this.state} />
+                        </Grid>
+                        <Grid item className={classes.search} xs={12}>
+                            <Cite/>
+                        </Grid>
+                        <Grid item className={classes.search} xs={12}>
+                            <Typography variant={"caption"} className={classes.attribution}>
+                                Website by <a rel="noopener noreferrer" href="https://christian.dallago.us" target="_blank">Christian Dallago</a>.
+                            </Typography>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
         );
