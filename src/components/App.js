@@ -9,6 +9,7 @@ import { Motion, spring} from 'react-motion';
 import LocationTable from './LocationTable'
 import Cite from './Cite'
 import SequenceStatus from "./SequenceStatus";
+import Features from "./Features";
 
 const styles = theme => ({
     attribution: {
@@ -94,6 +95,9 @@ class App extends React.Component {
                         <Grid item className={classes.search} xs={12}>
                             <SequenceStatus />
                         </Grid>
+                        <Grid item className={classes.search} xs={12}>
+                            <Features />
+                        </Grid>
                         <Motion defaultStyle={{opacity: 0}} style={{opacity: spring(20)}}>
                             {value =>
                                 <Grid item className={classes.fadingComponents} style={{opacity: value.opacity}} xs={12} md={6} xl={6}>
@@ -108,7 +112,6 @@ class App extends React.Component {
                                 </Grid>
                             }
                         </Motion>
-
                         <Grid item className={classes.search} xs={12}>
                             <Cite/>
                         </Grid>
