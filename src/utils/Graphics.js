@@ -1,33 +1,33 @@
 export const proteinColorSchemes = {
     dssp8: {
         primary : {
-            'G':'#33cc00',
-            'H':'#009900',
-            'I':'#33cc00',
-            'B':'#666666',
-            'E':'#0033ff',
-            'S':'#0099ff',
-            'T':'#0099ff',
-            'C':'#ffff00',
+            'G':'#ededed',
+            'H':'#ededed',
+            'I':'#ededed',
+            'B':'#ededed',
+            'E':'#ededed',
+            'S':'#ededed',
+            'T':'#ededed',
+            'C':'#ededed',
         },
         contrast : {
-            'G':'#fafafa',
-            'H':'#fafafa',
-            'I':'#fafafa',
-            'B':'#fafafa',
-            'E':'#fafafa',
-            'S':'#fafafa',
-            'T':'#fafafa',
-            'C':'#505050',
+            'G':'#8ad970',
+            'H':'#ccd96a',
+            'I':'#d99657',
+            'B':'#d95633',
+            'E':'#d958aa',
+            'S':'#6d3bd9',
+            'T':'#3f54d9',
+            'C':'#4cd9c2',
         }
     },
     disorder: {
         primary : {
-            '-':'#505050',
-            'X':'#fafafa',
+            '-':'#ededed',
+            'X':'#505050',
         },
         contrast : {
-            '-':'#fafafa',
+            '-':'#ededed',
             'X':'#505050',
         }
     },
