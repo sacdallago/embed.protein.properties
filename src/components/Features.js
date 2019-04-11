@@ -13,6 +13,7 @@ import LinearProgress from "@material-ui/core/LinearProgress/LinearProgress";
 import SequenceHighlighter from "./SequenceHighlighter";
 import {proteinColorSchemes} from "../utils/Graphics";
 import Typography from "@material-ui/core/Typography/Typography";
+// import FeatureViewer from 'feature-viewer/dist/feature-viewer.nextprot'
 
 const styles = theme => ({
     root: {
@@ -42,6 +43,19 @@ class Features extends React.Component {
             },
             loading: false
         };
+    }
+
+    componentDidMount(){
+        // this.ft = new FeatureViewer(this.state.sequence,
+        //     '#fv1',
+        //     {
+        //         showAxis: true,
+        //         showSequence: true,
+        //         brushActive: true, //zoom
+        //         toolbar:true, //current zoom & mouse position
+        //         bubbleHelp:true,
+        //         zoomMax:50 //define the maximum range of the zoom
+        //     });
     }
 
     getFeatures = (sequence) => {
@@ -156,6 +170,7 @@ class Features extends React.Component {
                             Amino-acid predicted features
                         </Typography>
                     </Paper>
+                    <div id="fv1"/>
                 </Grid>
                 <Grid item xs={12}>
                     <ExpansionPanel>
