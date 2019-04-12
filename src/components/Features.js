@@ -27,11 +27,11 @@ const ULR = "http://localhost:5000/features";
 
 const placeholder = {
     sequence: "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
-    "predictedSubcellularLocalizations": "Mitochondrion",
-    "predictedMembrane": "Soluble",
-    "predictedDSSP3": "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
-    "predictedDSSP8": "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
-    "predictedDisorder": "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
+    predictedSubcellularLocalizations: "++++++++++++++",
+    predictedMembrane: "++++++++++++",
+    predictedDSSP3: "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
+    predictedDSSP8: "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
+    predictedDisorder: "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
 };
 
 
@@ -123,7 +123,7 @@ class Features extends React.Component {
     render() {
         const { classes } = this.props;
 
-        let features = this.state.loading ? placeholder : this.state.features;
+        let features = this.state.loading || this.state.features === null ? placeholder : this.state.features;
 
         return (
             <Grid container spacing={16}>
@@ -151,9 +151,9 @@ class Features extends React.Component {
                                     <Typography className={classes.title} variant={"caption"}>
                                         Sub-cellular location
                                     </Typography>
-                                    {features && <Typography className={classes.title} variant={"h6"}>
+                                    <Typography className={classes.title} variant={"h6"}>
                                         {features.predictedSubcellularLocalizations}
-                                    </Typography>}
+                                    </Typography>
                                 </Paper>
                             </Grid>
                             <Grid item xs={6}>
@@ -161,9 +161,9 @@ class Features extends React.Component {
                                     <Typography className={classes.title} variant={"caption"}>
                                         Membrane bound
                                     </Typography>
-                                    {features && <Typography className={classes.title} variant={"h6"}>
+                                    <Typography className={classes.title} variant={"h6"}>
                                         {features.predictedMembrane}
-                                    </Typography>}
+                                    </Typography>
                                 </Paper>
                             </Grid>
                         </Grid>
@@ -183,7 +183,7 @@ class Features extends React.Component {
                             <Typography className={classes.heading}>Expand to see secondary structure prediction (DSSP8)</Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
-                            {features && <SequenceHighlighter string={features.predictedDSSP8} proteinColorScheme={proteinColorSchemes['dssp8']}/>}
+                            <SequenceHighlighter string={features.predictedDSSP8} proteinColorScheme={proteinColorSchemes['dssp8']}/>
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
                     <ExpansionPanel>
@@ -191,7 +191,7 @@ class Features extends React.Component {
                             <Typography className={classes.heading}>Expand to see secondary structure prediction (DSSP3)</Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
-                            {features && <SequenceHighlighter string={features.predictedDSSP8} proteinColorScheme={proteinColorSchemes['dssp8']}/>}
+                            <SequenceHighlighter string={features.predictedDSSP8} proteinColorScheme={proteinColorSchemes['dssp8']}/>
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
                     <ExpansionPanel>
@@ -199,7 +199,7 @@ class Features extends React.Component {
                             <Typography className={classes.heading}>Expand to see disorder prediction</Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
-                            {features && <SequenceHighlighter string={features.predictedDisorder} proteinColorScheme={proteinColorSchemes['disorder']}/>}
+                            <SequenceHighlighter string={features.predictedDisorder} proteinColorScheme={proteinColorSchemes['disorder']}/>
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
                 </Grid>
