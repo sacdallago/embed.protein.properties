@@ -203,7 +203,7 @@ class Features extends React.Component {
                             <Typography className={classes.heading}>Expand to see secondary structure prediction (DSSP3)</Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
-                            <SequenceHighlighter string={features.predictedDSSP8} proteinColorScheme={proteinColorSchemes['dssp8']}/>
+                            <SequenceHighlighter string={features.predictedDSSP3} proteinColorScheme={proteinColorSchemes['dssp8']}/>
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
                     <ExpansionPanel>
