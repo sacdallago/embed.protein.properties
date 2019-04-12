@@ -19,7 +19,16 @@ const styles = theme => ({
     root: {
         overflowX: 'auto',
         textAlign: "center",
+        paddingTop: theme.spacing.unit,
         paddingBottom: theme.spacing.unit
+    },
+    sequenceHighlighter: {
+        margin: 'auto',
+        paddingTop: theme.spacing.unit,
+        paddingLeft: theme.spacing.unit*3,
+        paddingRight: theme.spacing.unit*3,
+        paddingBottom: theme.spacing.unit,
+
     },
 });
 
@@ -128,12 +137,15 @@ class Features extends React.Component {
         return (
             <Grid container spacing={16}>
                 <Grid item xs={12}>
+                    <LinearProgress variant="query" style={this.state.loading ? {opacity:1} : {opacity:0}}/>
+
                     <Paper className={classes.root} elevation={2}>
-                        <LinearProgress variant="query" style={this.state.loading ? {opacity:1} : {opacity:0}}/>
                         <Typography className={classes.title} variant={"h6"}>
                             Your sequence
                         </Typography>
-                        <SequenceHighlighter string={this.state.loading || this.state.sequence === null ? placeholder.sequence : this.state.sequence} proteinColorScheme={proteinColorSchemes['mview']}/>
+                        <div className={classes.sequenceHighlighter}>
+                            <SequenceHighlighter string={this.state.loading || this.state.sequence === null ? placeholder.sequence : this.state.sequence} proteinColorScheme={proteinColorSchemes['mview']}/>
+                        </div>
                     </Paper>
                 </Grid>
                 <Grid item xs={12}>
