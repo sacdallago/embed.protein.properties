@@ -13,7 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import SequenceHighlighter from "./SequenceHighlighter";
 import {proteinColorSchemes} from "../utils/Graphics";
 import Typography from "@material-ui/core/Typography/Typography";
-// import FeatureViewer from 'feature-viewer/dist/feature-viewer.nextprot'
+import FeatureViewer from './FeatureViewer/FeatureViewer';
 
 const styles = theme => ({
     paper: {
@@ -25,7 +25,6 @@ const styles = theme => ({
     text: {
         width: "max-content",
         margin: "auto",
-        // borderRadius: 100
     },
     titles: {
         minWidth: "12em"
@@ -71,19 +70,6 @@ class Features extends React.Component {
         };
     }
 
-    componentDidMount(){
-        // this.ft = new FeatureViewer(this.state.sequence,
-        //     '#fv1',
-        //     {
-        //         showAxis: true,
-        //         showSequence: true,
-        //         brushActive: true, //zoom
-        //         toolbar:true, //current zoom & mouse position
-        //         bubbleHelp:true,
-        //         zoomMax:50 //define the maximum range of the zoom
-        //     });
-    }
-
     getFeatures = (sequence) => {
         this.setState({
             loading: true
@@ -104,7 +90,6 @@ class Features extends React.Component {
             })
                 .then(response => response.json())
                 .then(json => {
-                    console.log(json);
                     this.setState({
                         features: json,
                         loading: false
@@ -200,11 +185,13 @@ class Features extends React.Component {
                     </Grid>
                     <Grid item xs={12}>
                         <Paper className={classes.paper} elevation={2}>
-                            <Typography className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)} variant={"h6"}>
-                                Amino-acid predicted features
-                            </Typography>
+                            <Paper className={classes.paper} elevation={0}>
+                                <Typography className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)} variant={"h6"}>
+                                    Amino-acid predicted features
+                                </Typography>
+                            </Paper>
+                            <FeatureViewer data={this.state.features}/>
                         </Paper>
-                        <div id="fv1"/>
                         <ExpansionPanel>
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                                 <Typography className={classnames(classes.text, filler ? classes.expansionPanels : null, filler ? "animated-background" : null)}>
