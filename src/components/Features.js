@@ -3,24 +3,35 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import storeComponentWrapper from '../stores/jobDispatcher';
 import { proteinStatus } from "../stores/JobParameters";
+import classnames from 'classnames';
 import Paper from '@material-ui/core/Paper';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Grid from '@material-ui/core/Grid';
-import LinearProgress from "@material-ui/core/LinearProgress/LinearProgress";
 import SequenceHighlighter from "./SequenceHighlighter";
 import {proteinColorSchemes} from "../utils/Graphics";
 import Typography from "@material-ui/core/Typography/Typography";
 // import FeatureViewer from 'feature-viewer/dist/feature-viewer.nextprot'
 
 const styles = theme => ({
-    root: {
+    paper: {
         overflowX: 'auto',
         textAlign: "center",
         paddingTop: theme.spacing.unit,
-        paddingBottom: theme.spacing.unit
+        paddingBottom: theme.spacing.unit,
+    },
+    text: {
+        width: "max-content",
+        margin: "auto",
+        // borderRadius: 100
+    },
+    titles: {
+        minWidth: "12em"
+    },
+    expansionPanels: {
+        minWidth: "18em",
     },
     sequenceHighlighter: {
         margin: 'auto',
@@ -28,8 +39,11 @@ const styles = theme => ({
         paddingLeft: theme.spacing.unit*3,
         paddingRight: theme.spacing.unit*3,
         paddingBottom: theme.spacing.unit,
-
     },
+    filler: {
+        backgroundColor: "#ededed",
+        color: "#ededed"
+    }
 });
 
 const ULR = "http://localhost:5000/features";
@@ -53,7 +67,7 @@ class Features extends React.Component {
             proteinStatus: this.props.jobParameters.proteinStatus || proteinStatus.NULL,
             sequence: null,
             features: null,
-            loading: false
+            loading: null
         };
     }
 
@@ -120,12 +134,11 @@ class Features extends React.Component {
             case proteinStatus.INVALID:
             default:
             // do nothing
-
         }
 
         this.setState({
             proteinStatus: jobParameters.proteinStatus,
-            sequence: jobParameters.protein.sequence
+            sequence: jobParameters.protein && jobParameters.protein.sequence
         });
     }
 
@@ -134,88 +147,98 @@ class Features extends React.Component {
 
         let features = this.state.loading || this.state.features === null ? placeholder : this.state.features;
 
-        return (
-            <Grid container spacing={16}>
-                <Grid item xs={12}>
-                    <LinearProgress variant="query" style={this.state.loading ? {opacity:1} : {opacity:0}}/>
+        let filler = this.state.loading || this.state.features === null;
 
-                    <Paper className={classes.root} elevation={2}>
-                        <Typography className={classes.title} variant={"h6"}>
-                            Your sequence
-                        </Typography>
-                        <div className={classes.sequenceHighlighter}>
-                            <SequenceHighlighter string={this.state.loading || this.state.sequence === null ? placeholder.sequence : this.state.sequence} proteinColorScheme={proteinColorSchemes['mview']}/>
-                        </div>
-                    </Paper>
-                </Grid>
-                <Grid item xs={12}>
-                    <Paper className={classes.root} elevation={2}>
-                        <Grid container spacing={0}>
-                            <Grid item xs={12}>
-                                <Paper className={classes.root} elevation={0}>
-                                    <Typography className={classes.title} variant={"h6"}>
-                                        Global predicted features
-                                    </Typography>
-                                </Paper>
+        return ( <div>
+                {this.state.loading !== null &&
+                <Grid container spacing={16}>
+                    <Grid item xs={12}>
+                        <Paper className={classes.paper} elevation={2}>
+                            <Typography className={classnames(classes.text, classes.titles, filler ? "animated-background" : null)} variant={"h6"}>
+                                Your sequence
+                            </Typography>
+                            <br/>
+                            <div className={classes.sequenceHighlighter}>
+                                <SequenceHighlighter string={this.state.loading || this.state.sequence === null ? placeholder.sequence : this.state.sequence} proteinColorScheme={proteinColorSchemes['mview']}/>
+                            </div>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Paper className={classes.paper} elevation={2}>
+                            <Grid container spacing={0}>
+                                <Grid item xs={12}>
+                                    <Paper className={classes.paper} elevation={0}>
+                                        <Typography className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)} variant={"h6"}>
+                                            Global predicted features
+                                        </Typography>
+                                    </Paper>
+                                </Grid>
+                                <Grid item md={6} xl={6} xs={12}>
+                                    <Paper className={classes.paper} elevation={0}>
+                                        <Typography className={classnames(classes.text, filler ? "animated-background" : null)} variant={"caption"}>
+                                            Sub-cellular location
+                                        </Typography>
+                                        <br/>
+                                        <Typography className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)} variant={"h6"}>
+                                            {features.predictedSubcellularLocalizations}
+                                        </Typography>
+                                    </Paper>
+                                </Grid>
+                                <Grid item md={6} xl={6} xs={12}>
+                                    <Paper className={classes.paper} elevation={0}>
+                                        <Typography className={classnames(classes.text, filler ? "animated-background" : null)} variant={"caption"}>
+                                            Membrane bound
+                                        </Typography>
+                                        <br/>
+                                        <Typography className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)} variant={"h6"}>
+                                            {features.predictedMembrane}
+                                        </Typography>
+                                    </Paper>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={6}>
-                                <Paper className={classes.root} elevation={0}>
-                                    <Typography className={classes.title} variant={"caption"}>
-                                        Sub-cellular location
-                                    </Typography>
-                                    <Typography className={classes.title} variant={"h6"}>
-                                        {features.predictedSubcellularLocalizations}
-                                    </Typography>
-                                </Paper>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Paper className={classes.root} elevation={0}>
-                                    <Typography className={classes.title} variant={"caption"}>
-                                        Membrane bound
-                                    </Typography>
-                                    <Typography className={classes.title} variant={"h6"}>
-                                        {features.predictedMembrane}
-                                    </Typography>
-                                </Paper>
-                            </Grid>
-                        </Grid>
-                    </Paper>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Paper className={classes.paper} elevation={2}>
+                            <Typography className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)} variant={"h6"}>
+                                Amino-acid predicted features
+                            </Typography>
+                        </Paper>
+                        <div id="fv1"/>
+                        <ExpansionPanel>
+                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                <Typography className={classnames(classes.text, filler ? classes.expansionPanels : null, filler ? "animated-background" : null)}>
+                                    Secondary structure prediction (DSSP8)
+                                </Typography>
+                            </ExpansionPanelSummary>
+                            <ExpansionPanelDetails>
+                                <SequenceHighlighter string={features.predictedDSSP8} proteinColorScheme={proteinColorSchemes['dssp8']}/>
+                            </ExpansionPanelDetails>
+                        </ExpansionPanel>
+                        <ExpansionPanel>
+                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                <Typography className={classnames(classes.text, filler ? classes.expansionPanels : null, filler ? "animated-background" : null)}>
+                                    Secondary structure prediction (DSSP3)
+                                </Typography>
+                            </ExpansionPanelSummary>
+                            <ExpansionPanelDetails>
+                                <SequenceHighlighter string={features.predictedDSSP3} proteinColorScheme={proteinColorSchemes['dssp8']}/>
+                            </ExpansionPanelDetails>
+                        </ExpansionPanel>
+                        <ExpansionPanel>
+                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                <Typography className={classnames(classes.text, filler ? classes.expansionPanels : null, filler ? "animated-background" : null)}>
+                                    Disorder prediction
+                                </Typography>
+                            </ExpansionPanelSummary>
+                            <ExpansionPanelDetails>
+                                <SequenceHighlighter string={features.predictedDisorder} proteinColorScheme={proteinColorSchemes['disorder']}/>
+                            </ExpansionPanelDetails>
+                        </ExpansionPanel>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                    <Paper className={classes.root} elevation={2}>
-                        <Typography className={classes.title} variant={"h6"}>
-                            Amino-acid predicted features
-                        </Typography>
-                    </Paper>
-                    <div id="fv1"/>
-                </Grid>
-                <Grid item xs={12}>
-                    <ExpansionPanel>
-                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography className={classes.heading}>Expand to see secondary structure prediction (DSSP8)</Typography>
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
-                            <SequenceHighlighter string={features.predictedDSSP8} proteinColorScheme={proteinColorSchemes['dssp8']}/>
-                        </ExpansionPanelDetails>
-                    </ExpansionPanel>
-                    <ExpansionPanel>
-                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography className={classes.heading}>Expand to see secondary structure prediction (DSSP3)</Typography>
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
-                            <SequenceHighlighter string={features.predictedDSSP3} proteinColorScheme={proteinColorSchemes['dssp8']}/>
-                        </ExpansionPanelDetails>
-                    </ExpansionPanel>
-                    <ExpansionPanel>
-                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography className={classes.heading}>Expand to see disorder prediction</Typography>
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
-                            <SequenceHighlighter string={features.predictedDisorder} proteinColorScheme={proteinColorSchemes['disorder']}/>
-                        </ExpansionPanelDetails>
-                    </ExpansionPanel>
-                </Grid>
-            </Grid>
+                }
+            </div>
         );
     }
 }
