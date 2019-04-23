@@ -87,6 +87,20 @@ class App extends React.Component {
                 <Grid item xs={12}>
                     <Grid container className={classes.root} spacing={16}>
                         <Grid item className={classes.search} xs={12}>
+                            <Grid item xl={12} md={12} xs={12} style={{textAlign: "center", marginTop: 30, marginBottom: 30}}>
+                                <Typography component={"div"} variant="h5">
+                                    SeqVec
+                                </Typography>
+                                <Typography component={"div"} variant="body1">
+                                    {"Check out our pre-print \"Modeling the Language of Life – Deep Learning Protein Sequences\". "}
+                                    <br/>
+                                    <a href="https://doi.org/10.1101/614313">
+                                        Click here.
+                                    </a>
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                        <Grid item className={classes.search} xs={12}>
                             <SequenceInput />
                         </Grid>
                         <Grid item className={classes.search} xs={12}>
