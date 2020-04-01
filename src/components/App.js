@@ -94,7 +94,7 @@ class App extends React.Component {
                                 <Typography component={"div"} variant="body1">
                                     {"Check out our pre-print \"Modeling the Language of Life – Deep Learning Protein Sequences\". "}
                                     <br/>
-                                    <a href="https://doi.org/10.1101/614313">
+                                    <a href="https://doi.org/10.1186/s12859-019-3220-8" target={"_blank"} ref={"author"}>
                                         Click here.
                                     </a>
                                 </Typography>

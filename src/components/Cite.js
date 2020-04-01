@@ -36,13 +36,13 @@ class Cite extends React.Component {
                     Cite
                 </Typography>
                 <pre>
-Modeling the Language of Life – Deep Learning Protein Sequences
+Modeling aspects of the language of life through transfer-learning protein sequences
                 </pre>
                 <pre>
 Michael Heinzinger, Ahmed Elnaggar, Yu Wang, Christian Dallago, Dmitrii Nachaev, Florian Matthes, Burkhard Rost
                 </pre>
                 <pre>
-bioRxiv 614313; DOI: <a href={"https://doi.org/10.1101/614313"}>https://doi.org/10.1101/614313</a>
+BMC Bioinformatics; DOI: <a href={"https://doi.org/10.1186/s12859-019-3220-8"}>https://doi.org/10.1186/s12859-019-3220-8</a>
                 </pre>
             </Paper>
         );
