@@ -89,15 +89,15 @@ class App extends React.Component {
                         <Grid item className={classes.search} xs={12}>
                             <Grid item xl={12} md={12} xs={12} style={{textAlign: "center", marginTop: 30, marginBottom: 30}}>
                                 <Typography component={"div"} variant="h5">
-                                    SeqVec
+                                    Predict protein properties from embeddings
                                 </Typography>
-                                <Typography component={"div"} variant="body1">
-                                    {"Check out our pre-print \"Modeling the Language of Life – Deep Learning Protein Sequences\". "}
-                                    <br/>
-                                    <a href="https://doi.org/10.1186/s12859-019-3220-8" target={"_blank"} ref={"author"}>
-                                        Click here.
-                                    </a>
-                                </Typography>
+                                {/*<Typography component={"div"} variant="body1">*/}
+                                {/*    {"Check out our pre-print \"Modeling the Language of Life – Deep Learning Protein Sequences\". "}*/}
+                                {/*    <br/>*/}
+                                {/*    <a href="https://doi.org/10.1186/s12859-019-3220-8" target={"_blank"} ref={"author"}>*/}
+                                {/*        Click here.*/}
+                                {/*    </a>*/}
+                                {/*</Typography>*/}
                             </Grid>
                         </Grid>
                         <Grid item className={classes.search} xs={12}>
