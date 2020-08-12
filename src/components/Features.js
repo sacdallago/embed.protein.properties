@@ -210,7 +210,7 @@ class Features extends React.Component {
                                         <br/>
                                         <table className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)}>
                                             <tr>
-                                                <th>Evidence code</th>
+                                                <th>GO Term</th>
                                                 <th>Distance</th>
                                             </tr>
                                             {Object.keys(features.predictedBPO).map(e => <tr key={e}>
@@ -228,7 +228,7 @@ class Features extends React.Component {
                                         <br/>
                                         <table className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)}>
                                             <tr>
-                                                <th>Evidence code</th>
+                                                <th>GO Term</th>
                                                 <th>Distance</th>
                                             </tr>
                                             {Object.keys(features.predictedMFO).map(e => <tr key={e}>
@@ -246,7 +246,7 @@ class Features extends React.Component {
                                         <br/>
                                         <table className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)}>
                                             <tr>
-                                                <th>Evidence code</th>
+                                                <th>GO Term</th>
                                                 <th>Distance</th>
                                             </tr>
                                             {Object.keys(features.predictedCCO).map(e => <tr key={e}>
