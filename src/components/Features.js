@@ -22,6 +22,11 @@ const styles = theme => ({
         paddingTop: theme.spacing.unit,
         paddingBottom: theme.spacing.unit,
     },
+    constrainedPaper: {
+        textAlign: "center",
+        paddingTop: theme.spacing.unit,
+        paddingBottom: theme.spacing.unit,
+    },
     text: {
         width: "max-content",
         margin: "auto",
@@ -51,6 +56,9 @@ const placeholder = {
     sequence: "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
     predictedSubcellularLocalizations: "++++++++++++++",
     predictedMembrane: "++++++++++++",
+    predictedBPO:{"GO:XXXXXXXX":0.28,"GO:XXXXXXX":0.28},
+    predictedCCO:{"GO:XXXXXXXX":0.28},
+    predictedMFO:{"GO:XXXXXXXX":0.28},
     predictedDSSP3: "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
     predictedDSSP8: "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
     predictedDisorder: "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
@@ -154,7 +162,14 @@ class Features extends React.Component {
                                 <Grid item xs={12}>
                                     <Paper className={classes.paper} elevation={0}>
                                         <Typography className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)} variant={"h6"}>
-                                            Global predicted features
+                                            Sequence predicted features
+                                        </Typography>
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Paper className={classes.paper} elevation={0}>
+                                        <Typography className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)} variant={"h7"}>
+                                            Via machine learning (SeqVec)
                                         </Typography>
                                     </Paper>
                                 </Grid>
@@ -178,6 +193,67 @@ class Features extends React.Component {
                                         <Typography className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)} variant={"h6"}>
                                             {features.predictedMembrane}
                                         </Typography>
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Paper className={classes.paper} elevation={0}>
+                                        <Typography className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)} variant={"h7"}>
+                                            Via embedding similarity (GoPredSim)
+                                        </Typography>
+                                    </Paper>
+                                </Grid>
+                                <Grid item md={6} xl={6} xs={12}>
+                                    <Paper className={classes.paper} elevation={0}>
+                                        <Typography className={classnames(classes.text, filler ? "animated-background" : null)} variant={"caption"}>
+                                            Biological process (BPO)
+                                        </Typography>
+                                        <br/>
+                                        <table className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)}>
+                                            <tr>
+                                                <th>Evidence code</th>
+                                                <th>Distance</th>
+                                            </tr>
+                                            {Object.keys(features.predictedBPO).map(e => <tr key={e}>
+                                                <td><a href={"http://amigo.geneontology.org/amigo/term/"+e} target={"_blank"}>{e}</a></td>
+                                                <td>{features.predictedBPO[e]}</td>
+                                            </tr>)}
+                                        </table>
+                                    </Paper>
+                                </Grid>
+                                <Grid item md={6} xl={6} xs={12}>
+                                    <Paper className={classes.paper} elevation={0}>
+                                        <Typography className={classnames(classes.text, filler ? "animated-background" : null)} variant={"caption"}>
+                                            Molecular function (MFO)
+                                        </Typography>
+                                        <br/>
+                                        <table className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)}>
+                                            <tr>
+                                                <th>Evidence code</th>
+                                                <th>Distance</th>
+                                            </tr>
+                                            {Object.keys(features.predictedMFO).map(e => <tr key={e}>
+                                                <td><a href={"http://amigo.geneontology.org/amigo/term/"+e} target={"_blank"}>{e}</a></td>
+                                                <td>{features.predictedMFO[e]}</td>
+                                            </tr>)}
+                                        </table>
+                                    </Paper>
+                                </Grid>
+                                <Grid item md={6} xl={6} xs={12}>
+                                    <Paper className={classes.paper} elevation={0}>
+                                        <Typography className={classnames(classes.text, filler ? "animated-background" : null)} variant={"caption"}>
+                                            Cellular Component (CCO)
+                                        </Typography>
+                                        <br/>
+                                        <table className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)}>
+                                            <tr>
+                                                <th>Evidence code</th>
+                                                <th>Distance</th>
+                                            </tr>
+                                            {Object.keys(features.predictedCCO).map(e => <tr key={e}>
+                                                <td><a href={"http://amigo.geneontology.org/amigo/term/"+e} target={"_blank"}>{e}</a></td>
+                                                <td>{features.predictedCCO[e]}</td>
+                                            </tr>)}
+                                        </table>
                                     </Paper>
                                 </Grid>
                             </Grid>
