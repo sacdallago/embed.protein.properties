@@ -46,7 +46,13 @@ class Cite extends React.Component {
                     GO annotations are predicted using GoPredSim:
                 </Typography>
                 <Typography>
-                    <a href={"https://github.com/Rostlab/goPredSim"} target={"_blank"} ref={"author"}>https://github.com/Rostlab/goPredSim</a>
+                    We transfer annotations from proteins with known GO terms to query sequences via embedding distance. To do so, we embed all sequences in a lookup database of proteins with known GO annotations as well as the given query sequence via SeqVec (see below) and calculate Euclidean distances between all embeddings. We then pick the closest annotated embedding to the query sequence embedding.
+
+                    Lastly, we convert the Euclidean distance to a Reliability Index (RI) ranging from 0 (weak prediction) to 1 (confident prediction).
+
+                    For details and equations, please consult our pre-print: XXX.
+
+                    Code is available at: <a href={"https://github.com/Rostlab/goPredSim"} target={"_blank"} ref={"author"}>https://github.com/Rostlab/goPredSim</a>
                 </Typography>
                 <br/>
                 <Typography variant={"body2"}>

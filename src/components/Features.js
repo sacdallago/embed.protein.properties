@@ -211,7 +211,7 @@ class Features extends React.Component {
                                         <table className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)}>
                                             <tr>
                                                 <th>GO Term</th>
-                                                <th>Distance</th>
+                                                <th>Reliability Index</th>
                                             </tr>
                                             {Object.keys(features.predictedBPO).map(e => <tr key={e}>
                                                 <td><a href={"http://amigo.geneontology.org/amigo/term/"+e} target={"_blank"}>{e}</a></td>
@@ -229,7 +229,7 @@ class Features extends React.Component {
                                         <table className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)}>
                                             <tr>
                                                 <th>GO Term</th>
-                                                <th>Distance</th>
+                                                <th>Reliability Index</th>
                                             </tr>
                                             {Object.keys(features.predictedMFO).map(e => <tr key={e}>
                                                 <td><a href={"http://amigo.geneontology.org/amigo/term/"+e} target={"_blank"}>{e}</a></td>
@@ -247,7 +247,7 @@ class Features extends React.Component {
                                         <table className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)}>
                                             <tr>
                                                 <th>GO Term</th>
-                                                <th>Distance</th>
+                                                <th>Reliability Index</th>
                                             </tr>
                                             {Object.keys(features.predictedCCO).map(e => <tr key={e}>
                                                 <td><a href={"http://amigo.geneontology.org/amigo/term/"+e} target={"_blank"}>{e}</a></td>
