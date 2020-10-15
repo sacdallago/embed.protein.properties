@@ -49,7 +49,7 @@ class Cite extends React.Component {
                     We transfer annotations from proteins with known GO terms to query sequences via embedding distance.
                     To do so, we embed all sequences in a lookup database of proteins with known GO annotations as well as the given query sequence via SeqVec (see below) and calculate Euclidean distances between all embeddings.
                     We then pick the closest annotated embedding to the query sequence embedding.
-                    Lastly, we convert the Euclidean distance to a Reliability Index (RI) ranging from 0 (weak prediction) to 1 (confident prediction).
+                    Lastly, we convert the Euclidean distance to a Reliability Index (RI) ranging from 0 (weak prediction) to 1 (confident prediction). Our observations suggest that RI values above 0.35 for BPO, 0.28 for MFO, and 0.29 CCO lead to reliable results.
                     <br/>
                     <br/>
                     Pre-print: Littmann M., Heinzinger M., Dallago C., Olenyi T., Rost B. Embeddings from deep learning transfer GO annotations beyond homology. Biorxiv (2020) <a target={"_blank"} ref={"author"} href={"https://doi.org/10.1101/2020.09.04.282814"}>https://doi.org/10.1101/2020.09.04.282814</a>
