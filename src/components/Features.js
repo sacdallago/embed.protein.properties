@@ -56,9 +56,12 @@ const placeholder = {
     sequence: "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
     predictedSubcellularLocalizations: "++++++++++++++",
     predictedMembrane: "++++++++++++",
-    predictedBPO:{"GO:XXXXXXXX":0.28,"GO:XXXXXXX":0.28},
-    predictedCCO:{"GO:XXXXXXXX":0.28},
-    predictedMFO:{"GO:XXXXXXXX":0.28},
+    predictedBPO:{},
+    predictedBPOGraphDataString: "",
+    predictedCCO:{},
+    predictedCCOGraphDataString: "",
+    predictedMFO:{},
+    predictedMFOGraphDataString: "",
     predictedDSSP3: "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
     predictedDSSP8: "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
     predictedDisorder: "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
@@ -98,6 +101,57 @@ class Features extends React.Component {
             })
                 .then(response => response.json())
                 .then(json => {
+
+                    // MAKE string for AMIGO viz
+                    // MFO
+                    let predictedMFOGraphData = {...json.predictedMFO};
+
+                    Object
+                        .keys(predictedMFOGraphData)
+                        .forEach(e => {
+                            let score = predictedMFOGraphData[e];
+                            let newValue = {
+                                "title": e + "<br/>" + "score:" + score,
+                                "fill": score>= .28 ? "#FFFF99" : "#E5E4E2"
+                            };
+
+                            predictedMFOGraphData[e]= newValue
+                        });
+
+                    json['predictedMFOGraphDataString'] = encodeURIComponent(JSON.stringify(predictedMFOGraphData));
+                    // CCO
+                    let predictedCCOGraphData = {...json.predictedCCO};
+
+                    Object
+                        .keys(predictedCCOGraphData)
+                        .forEach(e => {
+                            let score = predictedCCOGraphData[e];
+                            let newValue = {
+                                "title": e + "<br/>" + "score:" + score,
+                                "fill": score>= .29 ? "#FFFF99" : "#E5E4E2"
+                            };
+
+                            predictedCCOGraphData[e]= newValue
+                        });
+
+                    json['predictedCCOGraphDataString'] = encodeURIComponent(JSON.stringify(predictedCCOGraphData));
+                    // BPO
+                    let predictedBPOGraphData = {...json.predictedBPO};
+
+                    Object
+                        .keys(predictedBPOGraphData)
+                        .forEach(e => {
+                            let score = predictedBPOGraphData[e];
+                            let newValue = {
+                                "title": e + "<br/>" + "score:" + score,
+                                "fill": score>= .35 ? "#FFFF99" : "#E5E4E2"
+                            };
+
+                            predictedBPOGraphData[e]= newValue
+                        });
+
+                    json['predictedBPOGraphDataString'] = encodeURIComponent(JSON.stringify(predictedBPOGraphData));
+
                     this.setState({
                         features: json,
                         loading: false
@@ -208,6 +262,11 @@ class Features extends React.Component {
                                             Biological process (BPO)
                                         </Typography>
                                         <br/>
+                                        <Typography className={classnames(classes.text, filler ? "animated-background" : null)} variant={"body"}>
+                                            {features.predictedBPOGraphDataString !== "" &&
+                                            <a target="_blank" href={"http://amigo.geneontology.org/visualize?inline=false&format=png&mode=amigo&term_data_type=json&term_data=" + features.predictedBPOGraphDataString}>Open Graph</a>}
+                                        </Typography>
+                                        <br/>
                                         <table className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)}>
                                             <tr>
                                                 <th>GO Term</th>
@@ -226,6 +285,11 @@ class Features extends React.Component {
                                             Molecular function (MFO)
                                         </Typography>
                                         <br/>
+                                        <Typography className={classnames(classes.text, filler ? "animated-background" : null)} variant={"body"}>
+                                            {features.predictedMFOGraphDataString !== "" &&
+                                            <a target="_blank" href={"http://amigo.geneontology.org/visualize?inline=false&format=png&mode=amigo&term_data_type=json&term_data=" + features.predictedMFOGraphDataString}>Open Graph</a>}
+                                        </Typography>
+                                        <br/>
                                         <table className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)}>
                                             <tr>
                                                 <th>GO Term</th>
@@ -242,6 +306,11 @@ class Features extends React.Component {
                                     <Paper className={classes.paper} elevation={0}>
                                         <Typography className={classnames(classes.text, filler ? "animated-background" : null)} variant={"caption"}>
                                             Cellular Component (CCO)
+                                        </Typography>
+                                        <br/>
+                                        <Typography className={classnames(classes.text, filler ? "animated-background" : null)} variant={"body"}>
+                                            {features.predictedCCOGraphDataString !== "" &&
+                                            <a target="_blank" href={"http://amigo.geneontology.org/visualize?inline=false&format=png&mode=amigo&term_data_type=json&term_data=" + features.predictedCCOGraphDataString}>Open Graph</a>}
                                         </Typography>
                                         <br/>
                                         <table className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)}>
