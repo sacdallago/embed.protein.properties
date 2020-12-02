@@ -50,7 +50,7 @@ const styles = theme => ({
     }
 });
 
-const ULR = "https://api.embed.protein.properties/features";
+const ULR = "https://api.bioembeddings.com/api/annotations";
 
 const placeholder = {
     sequence: "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
@@ -96,7 +96,9 @@ class Features extends React.Component {
                 redirect: "follow", // manual, *follow, error
                 referrer: "no-referrer", // no-referrer, *client
                 body: JSON.stringify({
-                    "sequence": sequence
+                    "sequence": sequence,
+                    "format": "legacy",
+                    "model": "seqvec"
                 }), // body data type must match "Content-Type" header
             })
                 .then(response => response.json())
