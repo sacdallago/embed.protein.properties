@@ -276,7 +276,7 @@ class Features extends React.Component {
                                             </tr>
                                             {Object.keys(features.predictedBPO).map(e => <tr key={e}>
                                                 <td><a href={"http://amigo.geneontology.org/amigo/term/"+e} target={"_blank"}>{e}</a></td>
-                                                <td>{features.predictedBPO[e]}</td>
+                                                <td>{features.predictedBPO[e].toFixed(2)}</td>
                                             </tr>)}
                                         </table>
                                     </Paper>
@@ -299,7 +299,7 @@ class Features extends React.Component {
                                             </tr>
                                             {Object.keys(features.predictedMFO).map(e => <tr key={e}>
                                                 <td><a href={"http://amigo.geneontology.org/amigo/term/"+e} target={"_blank"}>{e}</a></td>
-                                                <td>{features.predictedMFO[e]}</td>
+                                                <td>{features.predictedMFO[e].toFixed(2)}</td>
                                             </tr>)}
                                         </table>
                                     </Paper>
@@ -322,7 +322,7 @@ class Features extends React.Component {
                                             </tr>
                                             {Object.keys(features.predictedCCO).map(e => <tr key={e}>
                                                 <td><a href={"http://amigo.geneontology.org/amigo/term/"+e} target={"_blank"}>{e}</a></td>
-                                                <td>{features.predictedCCO[e]}</td>
+                                                <td>{features.predictedCCO[e].toFixed(2)}</td>
                                             </tr>)}
                                         </table>
                                     </Paper>
