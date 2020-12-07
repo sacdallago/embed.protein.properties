@@ -63,6 +63,10 @@ class Cite extends React.Component {
                 <Typography>
                     Heinzinger, M., Elnaggar, A., Wang, Y. et al. Modeling aspects of the language of life through transfer-learning protein sequences. BMC Bioinformatics 20, 723 (2019). <a target={"_blank"} ref={"author"} href={"https://doi.org/10.1186/s12859-019-3220-8"}>https://doi.org/10.1186/s12859-019-3220-8</a>
                 </Typography>
+                <br/>
+                <Typography>
+                     Elnaggar, A., Heinzinger, M., Dallago, C., et al. ProtTrans: Towards Cracking the Language of Life's Code Through Self-Supervised Deep Learning and High Performance Computing. Arxiv (2020). <a target={"_blank"} ref={"author"} href={"https://arxiv.org/abs/2007.06225"}>https://arxiv.org/abs/2007.06225</a>
+                </Typography>
             </Paper>
         );
     }
