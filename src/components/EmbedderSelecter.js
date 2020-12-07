@@ -67,7 +67,7 @@ class EmbedderSelecter extends React.Component {
                 <FormControlLabel
                     value="prottrans_bert_bfd"
                     control={<Radio color="primary" />}
-                    label="ProTrans BERT BFD"
+                    label="ProtTrans BERT BFD"
                     labelPlacement="start"
                 />
             </RadioGroup>
