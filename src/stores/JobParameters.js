@@ -22,6 +22,7 @@ const initial = {
     // sequenceInput component
     proteinStatus: status.NULL,
     protein: undefined,
+    embedder: "seqvec"
 };
 
 

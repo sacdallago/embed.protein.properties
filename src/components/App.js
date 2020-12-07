@@ -7,6 +7,7 @@ import SequenceInput from './SequenceInput'
 import Cite from './Cite'
 import SequenceStatus from "./SequenceStatus"
 import Features from "./Features"
+import EmbedderSelecter from "./EmbedderSelecter";
 
 const styles = theme => ({
     attribution: {
@@ -99,6 +100,9 @@ class App extends React.Component {
                                 {/*    </a>*/}
                                 {/*</Typography>*/}
                             </Grid>
+                        </Grid>
+                        <Grid item className={classes.search} xs={12}>
+                            <EmbedderSelecter />
                         </Grid>
                         <Grid item className={classes.search} xs={12}>
                             <SequenceInput />

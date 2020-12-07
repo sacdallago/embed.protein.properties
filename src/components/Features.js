@@ -81,9 +81,10 @@ class Features extends React.Component {
         };
     }
 
-    getFeatures = (sequence) => {
+    getFeatures = (sequence, embedder) => {
         this.setState({
-            loading: true
+            loading: true,
+            features: placeholder
         }, () => {
             fetch(ULR, {
                 method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -98,7 +99,7 @@ class Features extends React.Component {
                 body: JSON.stringify({
                     "sequence": sequence,
                     "format": "legacy",
-                    "model": "seqvec"
+                    "model": embedder
                 }), // body data type must match "Content-Type" header
             })
                 .then(response => response.json())
@@ -177,7 +178,7 @@ class Features extends React.Component {
             case proteinStatus.AA:
             case proteinStatus.FASTA:
             case proteinStatus.MULTIPLESEQUENCES:
-                this.getFeatures(jobParameters.protein.sequence);
+                this.getFeatures(jobParameters.protein.sequence, jobParameters.embedder);
                 break;
             case proteinStatus.LOADING:
             case proteinStatus.INVALID:
@@ -225,7 +226,7 @@ class Features extends React.Component {
                                 <Grid item xs={12}>
                                     <Paper className={classes.paper} elevation={0}>
                                         <Typography className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)} variant={"h7"}>
-                                            Via machine learning (SeqVec)
+                                            Via machine learning
                                         </Typography>
                                     </Paper>
                                 </Grid>
@@ -251,82 +252,113 @@ class Features extends React.Component {
                                         </Typography>
                                     </Paper>
                                 </Grid>
+                                {Object.keys(features.predictedBPO).length > 0 && Object.keys(features.predictedMFO).length > 0 && Object.keys(features.predictedCCO).length > 0 &&
                                 <Grid item xs={12}>
                                     <Paper className={classes.paper} elevation={0}>
                                         <Typography className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)} variant={"h7"}>
                                             Via embedding similarity (GoPredSim)
                                         </Typography>
                                     </Paper>
-                                </Grid>
+                                </Grid>}
+                                {Object.keys(features.predictedBPO).length > 0 &&
                                 <Grid item md={6} xl={6} xs={12}>
                                     <Paper className={classes.paper} elevation={0}>
-                                        <Typography className={classnames(classes.text, filler ? "animated-background" : null)} variant={"caption"}>
+                                        <Typography
+                                            className={classnames(classes.text, filler ? "animated-background" : null)}
+                                            variant={"caption"}>
                                             Biological process (BPO)
                                         </Typography>
                                         <br/>
-                                        <Typography className={classnames(classes.text, filler ? "animated-background" : null)} variant={"body"}>
+                                        <Typography
+                                            className={classnames(classes.text, filler ? "animated-background" : null)}
+                                            variant={"body"}>
                                             {features.predictedBPOGraphDataString !== "" &&
-                                            <a target="_blank" href={"http://amigo.geneontology.org/visualize?inline=false&format=png&mode=amigo&term_data_type=json&term_data=" + features.predictedBPOGraphDataString}>Open Graph</a>}
+                                            <a target="_blank"
+                                               href={"http://amigo.geneontology.org/visualize?inline=false&format=png&mode=amigo&term_data_type=json&term_data=" + features.predictedBPOGraphDataString}>Open
+                                                Graph</a>}
                                         </Typography>
                                         <br/>
-                                        <table className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)}>
+                                        <table
+                                            className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)}>
                                             <tr>
                                                 <th>GO Term</th>
                                                 <th>Reliability Index</th>
                                             </tr>
                                             {Object.keys(features.predictedBPO).map(e => <tr key={e}>
-                                                <td><a href={"http://amigo.geneontology.org/amigo/term/"+e} target={"_blank"}>{e}</a></td>
+                                                <td><a href={"http://amigo.geneontology.org/amigo/term/" + e}
+                                                       target={"_blank"}>{e}</a></td>
                                                 <td>{features.predictedBPO[e].toFixed(2)}</td>
                                             </tr>)}
                                         </table>
                                     </Paper>
                                 </Grid>
+                                }
+                                {Object.keys(features.predictedMFO).length > 0 &&
                                 <Grid item md={6} xl={6} xs={12}>
                                     <Paper className={classes.paper} elevation={0}>
-                                        <Typography className={classnames(classes.text, filler ? "animated-background" : null)} variant={"caption"}>
+                                        <Typography
+                                            className={classnames(classes.text, filler ? "animated-background" : null)}
+                                            variant={"caption"}>
                                             Molecular function (MFO)
                                         </Typography>
                                         <br/>
-                                        <Typography className={classnames(classes.text, filler ? "animated-background" : null)} variant={"body"}>
+                                        <Typography
+                                            className={classnames(classes.text, filler ? "animated-background" : null)}
+                                            variant={"body"}>
                                             {features.predictedMFOGraphDataString !== "" &&
-                                            <a target="_blank" href={"http://amigo.geneontology.org/visualize?inline=false&format=png&mode=amigo&term_data_type=json&term_data=" + features.predictedMFOGraphDataString}>Open Graph</a>}
+                                            <a target="_blank"
+                                               href={"http://amigo.geneontology.org/visualize?inline=false&format=png&mode=amigo&term_data_type=json&term_data=" + features.predictedMFOGraphDataString}>Open
+                                                Graph</a>}
                                         </Typography>
                                         <br/>
-                                        <table className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)}>
+                                        <table
+                                            className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)}>
                                             <tr>
                                                 <th>GO Term</th>
                                                 <th>Reliability Index</th>
                                             </tr>
                                             {Object.keys(features.predictedMFO).map(e => <tr key={e}>
-                                                <td><a href={"http://amigo.geneontology.org/amigo/term/"+e} target={"_blank"}>{e}</a></td>
+                                                <td><a href={"http://amigo.geneontology.org/amigo/term/" + e}
+                                                       target={"_blank"}>{e}</a></td>
                                                 <td>{features.predictedMFO[e].toFixed(2)}</td>
                                             </tr>)}
                                         </table>
                                     </Paper>
                                 </Grid>
+                                }
+                                {Object.keys(features.predictedCCO).length > 0 &&
                                 <Grid item md={6} xl={6} xs={12}>
                                     <Paper className={classes.paper} elevation={0}>
-                                        <Typography className={classnames(classes.text, filler ? "animated-background" : null)} variant={"caption"}>
+                                        <Typography
+                                            className={classnames(classes.text, filler ? "animated-background" : null)}
+                                            variant={"caption"}>
                                             Cellular Component (CCO)
                                         </Typography>
                                         <br/>
-                                        <Typography className={classnames(classes.text, filler ? "animated-background" : null)} variant={"body"}>
+                                        <Typography
+                                            className={classnames(classes.text, filler ? "animated-background" : null)}
+                                            variant={"body"}>
                                             {features.predictedCCOGraphDataString !== "" &&
-                                            <a target="_blank" href={"http://amigo.geneontology.org/visualize?inline=false&format=png&mode=amigo&term_data_type=json&term_data=" + features.predictedCCOGraphDataString}>Open Graph</a>}
+                                            <a target="_blank"
+                                               href={"http://amigo.geneontology.org/visualize?inline=false&format=png&mode=amigo&term_data_type=json&term_data=" + features.predictedCCOGraphDataString}>Open
+                                                Graph</a>}
                                         </Typography>
                                         <br/>
-                                        <table className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)}>
+                                        <table
+                                            className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)}>
                                             <tr>
                                                 <th>GO Term</th>
                                                 <th>Reliability Index</th>
                                             </tr>
                                             {Object.keys(features.predictedCCO).map(e => <tr key={e}>
-                                                <td><a href={"http://amigo.geneontology.org/amigo/term/"+e} target={"_blank"}>{e}</a></td>
+                                                <td><a href={"http://amigo.geneontology.org/amigo/term/" + e}
+                                                       target={"_blank"}>{e}</a></td>
                                                 <td>{features.predictedCCO[e].toFixed(2)}</td>
                                             </tr>)}
                                         </table>
                                     </Paper>
                                 </Grid>
+                                }
                             </Grid>
                         </Paper>
                     </Grid>
