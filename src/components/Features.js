@@ -54,17 +54,17 @@ const ULR = "https://api.bioembeddings.com/api/annotations";
 
 const placeholder = {
     sequence: "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
-    predictedSubcellularLocalizations: "++++++++++++++",
-    predictedMembrane: "++++++++++++",
+    predictedSubcellularLocalizations: " ",
+    predictedMembrane: " ",
     predictedBPO:{},
     predictedBPOGraphDataString: "",
     predictedCCO:{},
     predictedCCOGraphDataString: "",
     predictedMFO:{},
     predictedMFOGraphDataString: "",
-    predictedDSSP3: "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
-    predictedDSSP8: "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
-    predictedDisorder: "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
+    predictedDSSP3: " ",
+    predictedDSSP8: " ",
+    predictedDisorder: " ",
 };
 
 
@@ -230,7 +230,7 @@ class Features extends React.Component {
                                         <Typography className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)} variant={"h7"}>
                                             Via machine learning {
                                             (this.state.embedder === "prottrans_t5_bfd" || this.state.embedder === "prottrans_bert_bfd") &&
-                                                " (using Light Attention)"
+                                            " (using Light Attention)"
                                         }
                                         </Typography>
                                     </Paper>
@@ -376,26 +376,33 @@ class Features extends React.Component {
                             </Paper>
                             <FeatureViewer data={this.state.features}/>
                         </Paper>
+                        {features.predictedDSSP3 && (
+                            <ExpansionPanel>
+                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                    <Typography className={classnames(classes.text, filler ? classes.expansionPanels : null, filler ? "animated-background" : null)}>
+                                        Secondary structure in three states (DSSP3)
+                                    </Typography>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <SequenceHighlighter string={features.predictedDSSP3} proteinColorScheme={proteinColorSchemes['dssp8']}/>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        )}
+                        {features.predictedDSSP8 &&
                         <ExpansionPanel>
-                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                <Typography className={classnames(classes.text, filler ? classes.expansionPanels : null, filler ? "animated-background" : null)}>
-                                    Secondary structure prediction (DSSP8)
+                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+                                <Typography
+                                    className={classnames(classes.text, filler ? classes.expansionPanels : null, filler ? "animated-background" : null)}>
+                                    Secondary structure in eight states (DSSP8)
                                 </Typography>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
-                                <SequenceHighlighter string={features.predictedDSSP8} proteinColorScheme={proteinColorSchemes['dssp8']}/>
+                                <SequenceHighlighter string={features.predictedDSSP8}
+                                                     proteinColorScheme={proteinColorSchemes['dssp8']}/>
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
-                        <ExpansionPanel>
-                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                <Typography className={classnames(classes.text, filler ? classes.expansionPanels : null, filler ? "animated-background" : null)}>
-                                    Secondary structure prediction (DSSP3)
-                                </Typography>
-                            </ExpansionPanelSummary>
-                            <ExpansionPanelDetails>
-                                <SequenceHighlighter string={features.predictedDSSP3} proteinColorScheme={proteinColorSchemes['dssp8']}/>
-                            </ExpansionPanelDetails>
-                        </ExpansionPanel>
+                        }
+                        {features.predictedDisorder &&
                         <ExpansionPanel>
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                                 <Typography className={classnames(classes.text, filler ? classes.expansionPanels : null, filler ? "animated-background" : null)}>
@@ -406,6 +413,7 @@ class Features extends React.Component {
                                 <SequenceHighlighter string={features.predictedDisorder} proteinColorScheme={proteinColorSchemes['disorder']}/>
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
+                        }
                     </Grid>
                 </Grid>
                 }

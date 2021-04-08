@@ -76,37 +76,41 @@ class FeatureViewer extends React.Component {
                     zoomMax:50 //define the maximum range of the zoom
                 });
 
-            let disorder = this.findIndexes(newProps.data.predictedDisorder, ['X']);
+            if(newProps.data.predictedDisorder){
+                let disorder = this.findIndexes(newProps.data.predictedDisorder, ['X']);
 
-            this.ft.addFeature({
-                data: this.findRanges(disorder['X']),
-                name: "Disorder",
-                color: "#0F8292",
-                type: "rect" // ['rect', 'path', 'line']
-            });
+                this.ft.addFeature({
+                    data: this.findRanges(disorder['X']),
+                    name: "Disorder",
+                    color: "#0F8292",
+                    type: "rect" // ['rect', 'path', 'line']
+                });
+            }
 
-            let secondaryStructure3 = this.findIndexes(newProps.data.predictedDSSP3, ['H', 'E', 'C']);
+            if(newProps.data.predictedDSSP3){
+                let secondaryStructure3 = this.findIndexes(newProps.data.predictedDSSP3, ['H', 'E', 'C']);
 
-            this.ft.addFeature({
-                data: this.findRanges(secondaryStructure3['H']),
-                name: "DSSP3-Helix",
-                color: "#ccd96a",
-                type: "rect" // ['rect', 'path', 'line']
-            });
+                this.ft.addFeature({
+                    data: this.findRanges(secondaryStructure3['H']),
+                    name: "DSSP3-Helix",
+                    color: "#ccd96a",
+                    type: "rect" // ['rect', 'path', 'line']
+                });
 
-            this.ft.addFeature({
-                data: this.findRanges(secondaryStructure3['E']),
-                name: "DSSP3-Sheet",
-                color: "#d958aa",
-                type: "rect" // ['rect', 'path', 'line']
-            });
+                this.ft.addFeature({
+                    data: this.findRanges(secondaryStructure3['E']),
+                    name: "DSSP3-Sheet",
+                    color: "#d958aa",
+                    type: "rect" // ['rect', 'path', 'line']
+                });
 
-            this.ft.addFeature({
-                data: this.findRanges(secondaryStructure3['C']),
-                name: "DSSP3-Other",
-                color: "#4cd9c2",
-                type: "rect" // ['rect', 'path', 'line']
-            });
+                this.ft.addFeature({
+                    data: this.findRanges(secondaryStructure3['C']),
+                    name: "DSSP3-Other",
+                    color: "#4cd9c2",
+                    type: "rect" // ['rect', 'path', 'line']
+                });
+            }
 
             // let secondaryStructure8 = this.findIndexes(newProps.data.predictedDSSP8, ['H', 'E', 'C', 'G', 'I', 'B', 'S', 'T']);
             //

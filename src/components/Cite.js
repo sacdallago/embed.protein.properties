@@ -40,7 +40,9 @@ class Cite extends React.Component {
                 </Typography>
                 <Typography>
                     This package includes the webserver serving this site, as well as scripts and pipelines to compute predictions for your sequences offline & in batch. Link: <a href={"https://github.com/sacdallago/bio_embeddings"} target={"_blank"} ref={"author"}>https://github.com/sacdallago/bio_embeddings</a>.
-                </Typography>
+                    <br/>
+                    <br/>
+                    Dallago, C. Schütze, K. Heinzinger, M. Olenyi, T. Littmann, M. Lu, A. X. Yang, K. K. Min, S. Yoon, S. Morton, J. T. Rost, B. Learned Embeddings from Deep Learning to Visualize and Predict Protein Sets. Current Protocols in Bioinformatics 2021. https://doi.org/10.1002/cpz1.113.                </Typography>
                 <br/>
                 <Typography variant={"body2"}>
                     Subcellular location and membrane permeability for ProtBert and ProtT5 calculated via Light Attention:
