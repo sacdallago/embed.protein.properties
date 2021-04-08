@@ -39,7 +39,14 @@ class Cite extends React.Component {
                     bio_embeddings: python package & pipeline for embedding generation:
                 </Typography>
                 <Typography>
-                    This package includes SeqVec, as well as other language models (ProtBert-BFD, Unirep,..). Prediction for supervised features (secondary structure and sub-cellular localization), as well as similarity-based annotation transfer (similar to GoPredSim) are also available. Link: <a href={"https://github.com/sacdallago/bio_embeddings"} target={"_blank"} ref={"author"}>https://github.com/sacdallago/bio_embeddings</a>.
+                    This package includes the webserver serving this site, as well as scripts and pipelines to compute predictions for your sequences offline & in batch. Link: <a href={"https://github.com/sacdallago/bio_embeddings"} target={"_blank"} ref={"author"}>https://github.com/sacdallago/bio_embeddings</a>.
+                </Typography>
+                <br/>
+                <Typography variant={"body2"}>
+                    Subcellular location and membrane permeability for ProtBert and ProtT5 calculated via Light Attention:
+                </Typography>
+                <Typography>
+                    COMING <a target={"_blank"} ref={"author"} href={"https://doi.org/COMING"}>https://doi.org/COMING</a>
                 </Typography>
                 <br/>
                 <Typography variant={"body2"}>
@@ -52,7 +59,7 @@ class Cite extends React.Component {
                     Lastly, we convert the Euclidean distance to a Reliability Index (RI) ranging from 0 (weak prediction) to 1 (confident prediction). Our observations suggest that RI values above 0.35 for BPO, 0.28 for MFO, and 0.29 CCO lead to reliable results.
                     <br/>
                     <br/>
-                    Pre-print: Littmann M., Heinzinger M., Dallago C., Olenyi T., Rost B. Embeddings from deep learning transfer GO annotations beyond homology. Biorxiv (2020) <a target={"_blank"} ref={"author"} href={"https://doi.org/10.1101/2020.09.04.282814"}>https://doi.org/10.1101/2020.09.04.282814</a>
+                    Littmann, M., Heinzinger, M., Dallago, C. et al. Embeddings from deep learning transfer GO annotations beyond homology. Sci Rep 11, 1160 (2021). <a target={"_blank"} ref={"author"} href={"https://doi.org/10.1038/s41598-020-80786-0"}>https://doi.org/10.1038/s41598-020-80786-0</a>
                     <br/>
                     Code: <a href={"https://github.com/Rostlab/goPredSim"} target={"_blank"} ref={"author"}>https://github.com/Rostlab/goPredSim</a>
                 </Typography>

@@ -75,6 +75,7 @@ class Features extends React.Component {
 
         this.state = {
             proteinStatus: this.props.jobParameters.proteinStatus || proteinStatus.NULL,
+            embedder: this.props.jobParameters.embedder || "seqvec",
             sequence: null,
             features: null,
             loading: null
@@ -188,7 +189,8 @@ class Features extends React.Component {
 
         this.setState({
             proteinStatus: jobParameters.proteinStatus,
-            sequence: jobParameters.protein && jobParameters.protein.sequence
+            sequence: jobParameters.protein && jobParameters.protein.sequence,
+            embedder: jobParameters.embedder
         });
     }
 
@@ -219,21 +221,24 @@ class Features extends React.Component {
                                 <Grid item xs={12}>
                                     <Paper className={classes.paper} elevation={0}>
                                         <Typography className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)} variant={"h6"}>
-                                            Sequence predicted features
+                                            Protein-level features
                                         </Typography>
                                     </Paper>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Paper className={classes.paper} elevation={0}>
                                         <Typography className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)} variant={"h7"}>
-                                            Via machine learning
+                                            Via machine learning {
+                                            (this.state.embedder === "prottrans_t5_bfd" || this.state.embedder === "prottrans_bert_bfd") &&
+                                                " (using Light Attention)"
+                                        }
                                         </Typography>
                                     </Paper>
                                 </Grid>
                                 <Grid item md={6} xl={6} xs={12}>
                                     <Paper className={classes.paper} elevation={0}>
                                         <Typography className={classnames(classes.text, filler ? "animated-background" : null)} variant={"caption"}>
-                                            Sub-cellular location
+                                            Subcellular location
                                         </Typography>
                                         <br/>
                                         <Typography className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)} variant={"h6"}>
@@ -366,7 +371,7 @@ class Features extends React.Component {
                         <Paper className={classes.paper} elevation={2}>
                             <Paper className={classes.paper} elevation={0}>
                                 <Typography className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)} variant={"h6"}>
-                                    Amino-acid predicted features
+                                    Residue-level features
                                 </Typography>
                             </Paper>
                             <FeatureViewer data={this.state.features}/>
