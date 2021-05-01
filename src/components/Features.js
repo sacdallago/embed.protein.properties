@@ -229,7 +229,7 @@ class Features extends React.Component {
                                     <Paper className={classes.paper} elevation={0}>
                                         <Typography className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)} variant={"h7"}>
                                             Via machine learning {
-                                            (this.state.embedder === "prottrans_t5_bfd" || this.state.embedder === "prottrans_bert_bfd") &&
+                                            (this.state.embedder === "prottrans_t5_xl_u50" || this.state.embedder === "prottrans_bert_bfd") &&
                                             " (using Light Attention)"
                                         }
                                         </Typography>
