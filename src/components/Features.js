@@ -53,6 +53,20 @@ const styles = theme => ({
     }
 });
 
+const locations_mapping = {
+    "Cytoplasm": '0086',
+    "Cell-Membrane": '0039',
+    "Endoplasmic reticulum'": '0095',
+    "Golgi - Apparatus": '0132',
+    "Lysosome / Vacuole": '0158',
+    "Mitochondrion": '0173',
+    "Nucleus": '0191',
+    "Peroxisome": '0204',
+    "Plastid": '0209',
+    "Extra - cellular": '0243',
+    " ": '0209'
+}
+
 const placeholder = {
     sequence: "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
     predictedSubcellularLocalizations: " ",
@@ -123,8 +137,6 @@ class Features extends React.Component {
         let jobParameters = nextProps.jobParameters;
         let jobResults = nextProps.jobResults;
 
-        console.log(jobResults);
-
         this.setState({
             proteinStatus: jobParameters.proteinStatus,
             sequence: jobParameters.protein && jobParameters.protein.sequence,
@@ -142,9 +154,10 @@ class Features extends React.Component {
 
         let filler = this.state.loading || this.state.features === null;
 
-        return ( <div>
-                {this.state.loading !== null &&
-                <Grid container spacing={16}>
+        return (<div>
+                <Grid container spacing={16} style={{
+                    display: this.state.loading !== null ? "none" : "inherit"
+                }}>
                     <Grid item xs={12}>
                         <Paper className={classes.paper} elevation={2}>
                             <Typography className={classnames(classes.text, classes.titles, filler ? "animated-background" : null)} variant={"h6"}>
@@ -175,6 +188,10 @@ class Features extends React.Component {
                                         }
                                         </Typography>
                                     </Paper>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    {/*<sib-swissbiopics-sl taxid="2759" sls={locations_mapping[features.predictedSubcellularLocalizations]}/>*/}
+                                    <sib-swissbiopics-sl taxid="2759" sls="0209"/>
                                 </Grid>
                                 <Grid item md={6} xl={6} xs={12}>
                                     <Paper className={classes.paper} elevation={0}>
@@ -357,7 +374,7 @@ class Features extends React.Component {
                         }
                     </Grid>
                 </Grid>
-                }
+
                 <FeatureGrabber/>
             </div>
         );

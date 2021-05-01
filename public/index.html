@@ -29,7 +29,25 @@
 <body>
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <script src="https://cdn.rawgit.com/calipho-sib/feature-viewer/v1.0.0/dist/feature-viewer.bundle.js"></script>
+<template id="sibSwissBioPicsStyle">
+    <style>
+        .notpresent, .subcell_name, .subcell_description{
+            display: none;
+        }
+    </style>
+</template>
+<template id="sibSwissBioPicsSlLiItem">
+    <li class="subcellular_location">
+        <a class="subcell_name"></a>
+        <span class="subcell_description"></span>
+    </li>
+</template>
 <div id="root"></div>
+<script type="module" src="https://www.swissbiopics.org/static/swissbiopics.js"></script>
+<script defer>
+    if (! window.customElements.get("sib-swissbiopics-sl"))
+        window.customElements.define("sib-swissbiopics-sl", SwissBioPicsSL);
+</script>
 <!--
   This HTML file is a template.
   If you open it directly in the browser, you will see an empty page.
