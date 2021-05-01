@@ -16,6 +16,7 @@ import Typography from "@material-ui/core/Typography/Typography";
 import FeatureViewer from './FeatureViewer/FeatureViewer';
 import FeatureGrabber from "./FeatureGrabber";
 import {resultStatus} from "../stores/JobResults";
+import nucleus from "../assets/nucleus.PNG";
 
 
 const styles = theme => ({
@@ -123,8 +124,6 @@ class Features extends React.Component {
         let jobParameters = nextProps.jobParameters;
         let jobResults = nextProps.jobResults;
 
-        console.log(jobResults);
-
         this.setState({
             proteinStatus: jobParameters.proteinStatus,
             sequence: jobParameters.protein && jobParameters.protein.sequence,
@@ -175,6 +174,9 @@ class Features extends React.Component {
                                         }
                                         </Typography>
                                     </Paper>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <img src={nucleus} alt="Subcell Location" />
                                 </Grid>
                                 <Grid item md={6} xl={6} xs={12}>
                                     <Paper className={classes.paper} elevation={0}>
