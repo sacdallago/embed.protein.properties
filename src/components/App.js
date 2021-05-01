@@ -1,12 +1,12 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
-import Typography from "@material-ui/core/Typography/Typography"
-import Grid from '@material-ui/core/Grid'
-import SequenceInput from './SequenceInput'
-import Cite from './Cite'
-import SequenceStatus from "./SequenceStatus"
-import Features from "./Features"
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from "@material-ui/core/Typography/Typography";
+import Grid from '@material-ui/core/Grid';
+import SequenceInput from './SequenceInput';
+import Cite from './Cite';
+import SequenceStatus from "./SequenceStatus";
+import Features from "./Features";
 import EmbedderSelecter from "./EmbedderSelecter";
 
 const styles = theme => ({
@@ -92,13 +92,6 @@ class App extends React.Component {
                                 <Typography component={"div"} variant="h5">
                                     Predict protein properties from embeddings
                                 </Typography>
-                                {/*<Typography component={"div"} variant="body1">*/}
-                                {/*    {"Check out our pre-print \"Modeling the Language of Life – Deep Learning Protein Sequences\". "}*/}
-                                {/*    <br/>*/}
-                                {/*    <a href="https://doi.org/10.1186/s12859-019-3220-8" target={"_blank"} ref={"author"}>*/}
-                                {/*        Click here.*/}
-                                {/*    </a>*/}
-                                {/*</Typography>*/}
                             </Grid>
                         </Grid>
                         <Grid item className={classes.search} xs={12}>

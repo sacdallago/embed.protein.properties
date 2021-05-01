@@ -3,6 +3,7 @@ import ReactGa from 'react-ga';
 import { analyticsPageMiddleware } from './analyticsPageMiddleware';
 
 import JobParameters from './JobParameters';
+import JobResults from "./JobResults";
 
 function trackEventInGoogleAnalytics({ getState }) {
     return next => action => {
@@ -19,6 +20,7 @@ function trackEventInGoogleAnalytics({ getState }) {
 
 const reducer = combineReducers({
     jobParameters: JobParameters,
+    jobResults: JobResults
 });
 
 const store  = createStore(reducer, applyMiddleware(trackEventInGoogleAnalytics, analyticsPageMiddleware));

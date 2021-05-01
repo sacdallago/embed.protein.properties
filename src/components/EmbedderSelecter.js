@@ -28,7 +28,6 @@ class EmbedderSelecter extends React.Component {
         this.state = {
             proteinStatus: this.props.jobParameters.proteinStatus || proteinStatus.NULL,
         };
-
     }
 
     componentWillReceiveProps(nextProps) {
@@ -58,6 +57,12 @@ class EmbedderSelecter extends React.Component {
                     });
                 }}
             >
+                <FormControlLabel
+                    value="best"
+                    control={<Radio color="primary" />}
+                    label="Best"
+                    labelPlacement="start"
+                />
                 <FormControlLabel
                     value="seqvec"
                     control={<Radio color="primary" />}

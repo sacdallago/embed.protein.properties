@@ -14,6 +14,9 @@ import SequenceHighlighter from "./SequenceHighlighter";
 import {proteinColorSchemes} from "../utils/Graphics";
 import Typography from "@material-ui/core/Typography/Typography";
 import FeatureViewer from './FeatureViewer/FeatureViewer';
+import FeatureGrabber from "./FeatureGrabber";
+import {resultStatus} from "../stores/JobResults";
+
 
 const styles = theme => ({
     paper: {
@@ -50,18 +53,18 @@ const styles = theme => ({
     }
 });
 
-const ULR = "https://api.bioembeddings.com/api/annotations";
-
 const placeholder = {
     sequence: "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
     predictedSubcellularLocalizations: " ",
     predictedMembrane: " ",
+
     predictedBPO:{},
     predictedBPOGraphDataString: "",
     predictedCCO:{},
     predictedCCOGraphDataString: "",
     predictedMFO:{},
     predictedMFOGraphDataString: "",
+
     predictedDSSP3: " ",
     predictedDSSP8: " ",
     predictedDisorder: " ",
@@ -82,115 +85,53 @@ class Features extends React.Component {
         };
     }
 
-    getFeatures = (sequence, embedder) => {
-        this.setState({
-            loading: true,
-            features: placeholder
-        }, () => {
-            fetch(ULR, {
-                method: "POST", // *GET, POST, PUT, DELETE, etc.
-                mode: "cors", // no-cors, cors, *same-origin
-                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-                credentials: "same-origin", // include, *same-origin, omit
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                redirect: "follow", // manual, *follow, error
-                referrer: "no-referrer", // no-referrer, *client
-                body: JSON.stringify({
-                    "sequence": sequence,
-                    "format": "legacy",
-                    "model": embedder
-                }), // body data type must match "Content-Type" header
-            })
-                .then(response => response.json())
-                .then(json => {
+    setFeatures = (embedder, results) => {
+        if (embedder !== "best") {
+            return this.setState({
+                loading: results[embedder].status !== resultStatus.DONE,
+                features: results[embedder]
+            });
+        }
 
-                    // MAKE string for AMIGO viz
-                    // MFO
-                    let predictedMFOGraphData = {...json.predictedMFO};
+        // Base off of ProtT5
+        let features = results['prottrans_t5_xl_u50'];
 
-                    Object
-                        .keys(predictedMFOGraphData)
-                        .forEach(e => {
-                            let score = predictedMFOGraphData[e];
-                            let newValue = {
-                                "title": e + "<br/>" + "score:" + score,
-                                "fill": score>= .28 ? "#FFFF99" : "#E5E4E2"
-                            };
+        // GoPredSim from SeqVec
+        features['predictedBPO'] = results['seqvec']['predictedBPO'];
+        features['predictedBPOGraphDataString'] = results['seqvec']['predictedBPOGraphDataString'];
+        features['predictedCCO'] = results['seqvec']['predictedCCO'];
+        features['predictedCCOGraphDataString'] = results['seqvec']['predictedCCOGraphDataString'];
+        features['predictedMFO'] = results['seqvec']['predictedMFO'];
+        features['predictedMFOGraphDataString'] = results['seqvec']['predictedMFOGraphDataString'];
 
-                            predictedMFOGraphData[e]= newValue
-                        });
+        // Secondary structure from ProtBert
+        features['predictedDSSP3'] = results['prottrans_bert_bfd']['predictedDSSP3'];
+        features['predictedDSSP8'] = results['prottrans_bert_bfd']['predictedDSSP8'];
+        features['predictedDisorder'] = results['prottrans_bert_bfd']['predictedDisorder'];
 
-                    json['predictedMFOGraphDataString'] = encodeURIComponent(JSON.stringify(predictedMFOGraphData));
-                    // CCO
-                    let predictedCCOGraphData = {...json.predictedCCO};
-
-                    Object
-                        .keys(predictedCCOGraphData)
-                        .forEach(e => {
-                            let score = predictedCCOGraphData[e];
-                            let newValue = {
-                                "title": e + "<br/>" + "score:" + score,
-                                "fill": score>= .29 ? "#FFFF99" : "#E5E4E2"
-                            };
-
-                            predictedCCOGraphData[e]= newValue
-                        });
-
-                    json['predictedCCOGraphDataString'] = encodeURIComponent(JSON.stringify(predictedCCOGraphData));
-                    // BPO
-                    let predictedBPOGraphData = {...json.predictedBPO};
-
-                    Object
-                        .keys(predictedBPOGraphData)
-                        .forEach(e => {
-                            let score = predictedBPOGraphData[e];
-                            let newValue = {
-                                "title": e + "<br/>" + "score:" + score,
-                                "fill": score>= .35 ? "#FFFF99" : "#E5E4E2"
-                            };
-
-                            predictedBPOGraphData[e]= newValue
-                        });
-
-                    json['predictedBPOGraphDataString'] = encodeURIComponent(JSON.stringify(predictedBPOGraphData));
-
-                    this.setState({
-                        features: json,
-                        loading: false
-                    })
-                })
-                .catch(e => {
-                    console.error(e);
-                    this.setState({
-                        loading: false
-                    })
-                })
-            ;
+        return this.setState({
+            loading: (
+                results['seqvec'].status !== resultStatus.DONE &&
+                results['prottrans_bert_bfd'].status !== resultStatus.DONE &&
+                results['prottrans_t5_xl_u50'].status !== resultStatus.DONE
+            ),
+            features: features
         });
     };
 
     componentWillReceiveProps(nextProps) {
         let jobParameters = nextProps.jobParameters;
+        let jobResults = nextProps.jobResults;
 
-        switch (jobParameters.proteinStatus) {
-            case proteinStatus.UNIPROT:
-            case proteinStatus.AA:
-            case proteinStatus.FASTA:
-            case proteinStatus.MULTIPLESEQUENCES:
-                this.getFeatures(jobParameters.protein.sequence, jobParameters.embedder);
-                break;
-            case proteinStatus.LOADING:
-            case proteinStatus.INVALID:
-            default:
-            // do nothing
-        }
+        console.log(jobResults);
 
         this.setState({
             proteinStatus: jobParameters.proteinStatus,
             sequence: jobParameters.protein && jobParameters.protein.sequence,
-            embedder: jobParameters.embedder
+            embedder: jobParameters.embedder,
+            loading: true
+        }, () => {
+            this.setFeatures(jobParameters.embedder, jobResults)
         });
     }
 
@@ -229,7 +170,7 @@ class Features extends React.Component {
                                     <Paper className={classes.paper} elevation={0}>
                                         <Typography className={classnames(classes.text, filler ? classes.titles : null, filler ? "animated-background" : null)} variant={"h7"}>
                                             Via machine learning {
-                                            (this.state.embedder === "prottrans_t5_xl_u50" || this.state.embedder === "prottrans_bert_bfd") &&
+                                            (this.state.embedder === "prottrans_t5_xl_u50" || this.state.embedder === "prottrans_bert_bfd" || this.state.embedder === "best") &&
                                             " (using Light Attention)"
                                         }
                                         </Typography>
@@ -417,6 +358,7 @@ class Features extends React.Component {
                     </Grid>
                 </Grid>
                 }
+                <FeatureGrabber/>
             </div>
         );
     }
@@ -424,7 +366,8 @@ class Features extends React.Component {
 
 Features.propTypes = {
     classes: PropTypes.object.isRequired,
-    jobParameters: PropTypes.object
+    jobParameters: PropTypes.object,
+    jobResults: PropTypes.object
 };
 
 export default storeComponentWrapper(withStyles(styles)(Features));

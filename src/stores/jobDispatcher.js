@@ -1,8 +1,8 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-const mapStateToProps = ({ jobParameters }) =>
-    ({ jobParameters });
+const mapStateToProps = ({ jobParameters, jobResults }) =>
+    ({ jobParameters, jobResults });
 
 const mapDispatchToProps = function (dispatch) {
     return bindActionCreators({
