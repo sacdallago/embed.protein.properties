@@ -148,14 +148,16 @@ class Features extends React.Component {
         let jobParameters = nextProps.jobParameters;
         let jobResults = nextProps.jobResults;
 
-        this.setState({
-            proteinStatus: jobParameters.proteinStatus,
-            sequence: jobParameters.protein && jobParameters.protein.sequence,
-            embedder: jobParameters.embedder,
-            loading: true
-        }, () => {
-            this.setFeatures(jobParameters.embedder, jobResults)
-        });
+        if(jobParameters.proteinStatus !== proteinStatus.NULL) {
+            this.setState({
+                proteinStatus: jobParameters.proteinStatus,
+                sequence: jobParameters.protein && jobParameters.protein.sequence,
+                embedder: jobParameters.embedder,
+                loading: true
+            }, () => {
+                this.setFeatures(jobParameters.embedder, jobResults)
+            });
+        }
     }
 
     render() {
