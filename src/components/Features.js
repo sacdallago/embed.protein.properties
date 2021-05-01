@@ -119,7 +119,7 @@ class Features extends React.Component {
         }
 
         // Base off of ProtT5
-        let features = results['prottrans_t5_xl_u50'];
+        let features = {...results['prottrans_t5_xl_u50']};
 
         // GoPredSim from SeqVec
         features['predictedBPO'] = results['seqvec']['predictedBPO'];
