@@ -16,7 +16,18 @@ import Typography from "@material-ui/core/Typography/Typography";
 import FeatureViewer from './FeatureViewer/FeatureViewer';
 import FeatureGrabber from "./FeatureGrabber";
 import {resultStatus} from "../stores/JobResults";
+
+// subcell location images
 import nucleus from "../assets/nucleus.PNG";
+import mitochondrion from "../assets/mitochondrion.PNG";
+import cytoplasm from "../assets/cytoplasm.PNG";
+import plasmaMembrane from "../assets/plasmaMembrane.PNG";
+import endoplasmicReticulum from "../assets/endoplasmicReticulum.PNG";
+import golgiApparatus from "../assets/golgiApparatus.PNG";
+import vacuole from "../assets/vacuole.PNG";
+import peroxisome from "../assets/peroxisome.PNG";
+import plastid from "../assets/plastid.PNG";
+import secreted from "../assets/secreted.PNG";
 
 
 const styles = theme => ({
@@ -53,6 +64,19 @@ const styles = theme => ({
         color: "#ededed"
     }
 });
+
+const locations_mapping = {
+    "Cytoplasm": cytoplasm,
+    "Cell-Membrane": plasmaMembrane,
+    "Endoplasmic reticulum'": endoplasmicReticulum,
+    "Golgi - Apparatus": golgiApparatus,
+    "Lysosome / Vacuole": vacuole,
+    "Mitochondrion": mitochondrion,
+    "Nucleus": nucleus,
+    "Peroxisome": peroxisome,
+    "Plastid": plastid,
+    "Extra - cellular": secreted,
+}
 
 const placeholder = {
     sequence: "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
@@ -176,7 +200,7 @@ class Features extends React.Component {
                                     </Paper>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <img src={nucleus} alt="Subcell Location" />
+                                    <img src={locations_mapping[features.predictedSubcellularLocalizations]} alt="Subcell Location" height={300}/>
                                 </Grid>
                                 <Grid item md={6} xl={6} xs={12}>
                                     <Paper className={classes.paper} elevation={0}>
