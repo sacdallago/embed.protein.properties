@@ -22,7 +22,7 @@ const initial = {
     // sequenceInput component
     proteinStatus: status.NULL,
     protein: undefined,
-    embedder: "best"
+    embedder: "prottrans_t5_xl_u50"
 };
 
 

@@ -134,8 +134,8 @@ class FeaturesGrabber extends React.Component {
                         type: "RESET_RESULTS"
                     });
 
-                    this.getFeatures(jobParameters.protein.sequence, 'seqvec');
-                    this.getFeatures(jobParameters.protein.sequence, 'prottrans_bert_bfd');
+                    // this.getFeatures(jobParameters.protein.sequence, 'seqvec');
+                    // this.getFeatures(jobParameters.protein.sequence, 'prottrans_bert_bfd');
                     this.getFeatures(jobParameters.protein.sequence, 'prottrans_t5_xl_u50');
                 }
                 break;

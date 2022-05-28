@@ -103,7 +103,7 @@ class Features extends React.Component {
 
         this.state = {
             proteinStatus: this.props.jobParameters.proteinStatus || proteinStatus.NULL,
-            embedder: this.props.jobParameters.embedder || "seqvec",
+            embedder: this.props.jobParameters.embedder || "prottrans_t5_xl_u50",
             sequence: null,
             features: null,
             loading: null
@@ -122,17 +122,17 @@ class Features extends React.Component {
         let features = {...results['prottrans_t5_xl_u50']};
 
         // GoPredSim from SeqVec
-        features['predictedBPO'] = results['seqvec']['predictedBPO'];
-        features['predictedBPOGraphDataString'] = results['seqvec']['predictedBPOGraphDataString'];
-        features['predictedCCO'] = results['seqvec']['predictedCCO'];
-        features['predictedCCOGraphDataString'] = results['seqvec']['predictedCCOGraphDataString'];
-        features['predictedMFO'] = results['seqvec']['predictedMFO'];
-        features['predictedMFOGraphDataString'] = results['seqvec']['predictedMFOGraphDataString'];
+        features['predictedBPO'] = results['prottrans_t5_xl_u50']['predictedBPO'];
+        features['predictedBPOGraphDataString'] = results['prottrans_t5_xl_u50']['predictedBPOGraphDataString'];
+        features['predictedCCO'] = results['prottrans_t5_xl_u50']['predictedCCO'];
+        features['predictedCCOGraphDataString'] = results['prottrans_t5_xl_u50']['predictedCCOGraphDataString'];
+        features['predictedMFO'] = results['prottrans_t5_xl_u50']['predictedMFO'];
+        features['predictedMFOGraphDataString'] = results['prottrans_t5_xl_u50']['predictedMFOGraphDataString'];
 
         // Secondary structure from ProtBert
-        features['predictedDSSP3'] = results['prottrans_bert_bfd']['predictedDSSP3'];
-        features['predictedDSSP8'] = results['prottrans_bert_bfd']['predictedDSSP8'];
-        features['predictedDisorder'] = results['prottrans_bert_bfd']['predictedDisorder'];
+        features['predictedDSSP3'] = results['prottrans_t5_xl_u50']['predictedDSSP3'];
+        features['predictedDSSP8'] = results['prottrans_t5_xl_u50']['predictedDSSP8'];
+        features['predictedDisorder'] = results['prottrans_t5_xl_u50']['predictedDisorder'];
 
         return this.setState({
             loading: (

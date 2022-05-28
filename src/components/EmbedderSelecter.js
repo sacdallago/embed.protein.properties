@@ -57,24 +57,24 @@ class EmbedderSelecter extends React.Component {
                     });
                 }}
             >
-                <FormControlLabel
-                    value="best"
-                    control={<Radio color="primary" />}
-                    label="Best"
-                    labelPlacement="start"
-                />
-                <FormControlLabel
-                    value="seqvec"
-                    control={<Radio color="primary" />}
-                    label="SeqVec"
-                    labelPlacement="start"
-                />
-                <FormControlLabel
-                    value="prottrans_bert_bfd"
-                    control={<Radio color="primary" />}
-                    label="ProtTrans BERT BFD (ProtBert)"
-                    labelPlacement="start"
-                />
+                {/*<FormControlLabel*/}
+                {/*    value="best"*/}
+                {/*    control={<Radio color="primary" />}*/}
+                {/*    label="Best"*/}
+                {/*    labelPlacement="start"*/}
+                {/*/>*/}
+                {/*<FormControlLabel*/}
+                {/*    value="seqvec"*/}
+                {/*    control={<Radio color="primary" />}*/}
+                {/*    label="SeqVec"*/}
+                {/*    labelPlacement="start"*/}
+                {/*/>*/}
+                {/*<FormControlLabel*/}
+                {/*    value="prottrans_bert_bfd"*/}
+                {/*    control={<Radio color="primary" />}*/}
+                {/*    label="ProtTrans BERT BFD (ProtBert)"*/}
+                {/*    labelPlacement="start"*/}
+                {/*/>*/}
                 <FormControlLabel
                     value="prottrans_t5_xl_u50"
                     control={<Radio color="primary" />}
